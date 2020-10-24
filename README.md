@@ -1,5 +1,24 @@
+<p align="center">
+  <img width="155" height="150" src="logo.png">
+</p>
+
 # swiftlambda
 AWS Lambda Swift functions made easy
+
+```
+➜  swiftlambda new -n MyNewLambda && cd MyNewLambda
+➜  swiftlambda build
+➜  swiftlambda deploy -n MyNewLambda -r arn:aws:iam::XXXXXXX:role/service-role/use-your-role
+```
+
+Just like that!
+
+# Prerequisites
+
+These software must be installed to use swiftlambda:
+* Swift 5.3 - swiftlambda uses Swift Package Manager
+* [Docker for Mac](https://docs.docker.com/docker-for-mac/install/) - used to build AWS Lambda compatible Swift binary
+* [AWS CLI](https://docs.aws.amazon.com/cli/latest/userguide/install-cliv2-mac.html) - swiftlambda expects aws-cli to be installed and configured with credentials and default region
 
 # Installation
 ## Using [Homebrew](https://brew.sh)
