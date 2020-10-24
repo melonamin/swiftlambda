@@ -18,6 +18,9 @@ extension Swiftlambda {
             guard name != "" else {
                 throw ValidationError("Name")
             }
+            guard let _ = try? shellOut(to: "which swift") else {
+                throw ValidationError("swift not found.")
+            }
         }
 
         mutating func run() {

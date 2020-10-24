@@ -46,6 +46,16 @@ extension Swiftlambda {
             if !update && role == "" {
                 throw ValidationError("Provide a valid AWS role.")
             }
+
+            guard let _ = try? shellOut(to: "which docker") else {
+                throw ValidationError("docker not found.")
+            }
+            guard let _ = try? shellOut(to: "which swift") else {
+                throw ValidationError("swift not found.")
+            }
+            guard let _ = try? shellOut(to: "which aws") else {
+                throw ValidationError("aws-cli not found.")
+            }
         }
 
         mutating func run() {

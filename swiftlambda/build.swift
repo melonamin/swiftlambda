@@ -17,6 +17,12 @@ extension Swiftlambda {
             guard source != "" else {
                 throw ValidationError("Set a proper source")
             }
+            guard let _ = try? shellOut(to: "which docker") else {
+                throw ValidationError("docker not found.")
+            }
+            guard let _ = try? shellOut(to: "which swift") else {
+                throw ValidationError("swift not found.")
+            }
         }
 
         mutating func run() {
