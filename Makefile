@@ -1,17 +1,38 @@
+SHELL = /bin/bash
+
 prefix ?= /usr/local
-bindir = $(prefix)/bin
-libdir = $(prefix)/lib
+bindir ?= $(prefix)/bin
+libdir ?= $(prefix)/lib
+srcdir = Sources
 
-build:
-	swift build -c release --disable-sandbox
+REPODIR = $(shell pwd)
+BUILDDIR = $(REPODIR)/.build
+SOURCES = $(wildcard $(srcdir)/**/*.swift)
 
-install: build
-	install ".build/release/swiftlambda" "$(bindir)"
+.DEFAULT_GOAL = all
 
+.PHONY: all
+all: swiftlambda
+
+swiftlambda: $(SOURCES)
+	@swift build \
+		-c release \
+		--disable-sandbox \
+		--build-path "$(BUILDDIR)"
+
+.PHONY: install
+install: swiftlambda
+	@install -d "$(bindir)" "$(libdir)"
+	@install "$(BUILDDIR)/release/swiftlambda" "$(bindir)"
+
+.PHONY: uninstall
 uninstall:
-	rm "$(bindir)/swiftlambda"
+	@rm -rf "$(bindir)/swiftlambda"
 
-clean:
-	rm -rf .build
+.PHONY: clean
+distclean:
+	@rm -f $(BUILDDIR)/release
 
-.PHONY: build install uninstall clean
+.PHONY: clean
+clean: distclean
+	@rm -rf $(BUILDDIR)
