@@ -97,7 +97,6 @@ extension Swiftlambda {
                 .appendingPathComponent("main.swift")
                 .absoluteString
             NSData(data: Data(handler.utf8)).write(toFile: handlerPath, atomically: true)
-            print(handlerPath)
         }
     }
 }
